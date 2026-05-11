@@ -51,22 +51,34 @@ describe("login parser", () => {
 
   it("accepts current login page sm2 public key format", async () => {
     const fetchMock = vi.spyOn(globalThis, "fetch")
-      .mockResolvedValueOnce(new Response(`
+      .mockImplementationOnce(async (input) => withResponseUrl(new Response(`
         <html><body>
         <form id="loginForm" action="/zfca/login">
           <input name="flowId" value="flow-123" />
         </form>
         <script>var ssoConfig = {"sm2":{"publicKey":"BMgXvoCLbC9cF8JAS/bv6Gd82+K+fFC2nRi7QJO3GvDkx0iLBmqDMpQUBxjC3yTfXN83cPVZRplPDsvr92K4omA="}};</script>
         </body></html>
-      `, { status: 200 }))
-      .mockResolvedValueOnce(new Response("", {
+      `, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/html",
+        },
+      }), String(input)))
+      .mockImplementationOnce(async (input) => withResponseUrl(new Response("", {
         status: 302,
         headers: {
           location: "https://so.muc.edu.cn/ai_service/#/accessLogin?access_token=token123",
         },
-      }));
+      }), String(input)));
 
     await expect(fetchAccessToken("25040072", "secret")).resolves.toBe("token123");
     fetchMock.mockRestore();
   });
 });
+
+function withResponseUrl(response: Response, url: string): Response {
+  Object.defineProperty(response, "url", {
+    value: url,
+  });
+  return response;
+}
