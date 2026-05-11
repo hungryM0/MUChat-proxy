@@ -1,0 +1,26 @@
+{
+  "name": "muchat-proxy",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "API_KEYS": "sk-demo-key"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "TOKEN_CACHE",
+        "class_name": "TokenCache"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["TokenCache"]
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
