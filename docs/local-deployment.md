@@ -23,7 +23,7 @@ MUC_PASSWORD=门户密码
 
 ```jsonc
 "vars": {
-  "API_KEYS": "sk-key-1,sk-key-2,sk-key-3"
+  "API_KEYS": "sk-key"
 }
 ```
 
@@ -33,4 +33,4 @@ MUC_PASSWORD=门户密码
 npm run dev
 ```
 
-默认地址通常是 `http://127.0.0.1:8787`。
+默认地址为 `http://127.0.0.1:8787`。

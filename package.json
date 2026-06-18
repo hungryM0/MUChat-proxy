@@ -10,6 +10,19 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
+  "cloudflare": {
+    "bindings": {
+      "API_KEYS": {
+        "description": "调用本代理时使用的 Key"
+      },
+      "MUC_USERNAME": {
+        "description": "学号"
+      },
+      "MUC_PASSWORD": {
+        "description": "信息门户密码"
+      }
+    }
+  },
   "dependencies": {
     "sm-crypto": "^0.4.0"
   },

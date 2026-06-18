@@ -9,26 +9,15 @@
 ## 一键部署
 
 1. 点击上面的 `Deploy to Cloudflare` 按钮
-2. 部署完成后进入 `Settings` -> `Variables and Secrets`
-3. 在 `Variables` 里新增：
+2. 按部署页面提示填写：
 
 ```text
 API_KEYS=你的API Key
+MUC_USERNAME=学号
+MUC_PASSWORD=信息门户密码
 ```
 
-如果要放多个 Key，用英文逗号隔开：
-
-```text
-API_KEYS=sk-key-1,sk-key-2,sk-key-3
-```
-
-4. 在 `Secrets` 里分别新增两个密钥：
-
-- `MUC_USERNAME`：学号
-- `MUC_PASSWORD`：门户密码
-
-5. 保存后，回到项目页面重新部署一次
-6. 以后调用接口时，用这个地址拼接口路径：
+3. 接口路径：
 
 ```text
 https://你的-worker-地址/v1/chat/completions
@@ -55,9 +44,7 @@ https://你的-worker-地址/v1/chat/completions
 
 ## Serverless 架构
 
-项目运行在 Cloudflare Workers 上，不需要自建服务器。Worker 负责接收 OpenAI 兼容请求，先校验 Bearer API Key，再把消息转换成 AI 民大上游接口需要的格式。
-
-登录态由 Durable Object 缓存。请求到来时，Worker 会复用有效的 access token；token 过期后使用 `MUC_USERNAME` 和 `MUC_PASSWORD` 自动刷新，减少重复登录，避免把账密信息暴露给调用方。
+项目运行在 Cloudflare Workers ，因此无需自备服务器
 
 ## 接口
 

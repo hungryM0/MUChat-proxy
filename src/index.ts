@@ -35,11 +35,5 @@ function isAuthorized(request: Request, apiKeysRaw: string): boolean {
     return false;
   }
   const key = authz.slice("Bearer ".length).trim();
-  const allowed = new Set(
-    apiKeysRaw
-      .split(",")
-      .map((value) => value.trim())
-      .filter(Boolean),
-  );
-  return allowed.has(key);
+  return key === apiKeysRaw.trim();
 }

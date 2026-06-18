@@ -37,6 +37,29 @@ describe("worker entry", () => {
     });
   });
 
+  it("does not split comma-separated api keys", async () => {
+    const localEnv = {
+      ...(env as AppEnv),
+      API_KEYS: "sk-demo-key,sk-other-key",
+    };
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(
+      new Request("https://example.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer sk-demo-key",
+          "Content-Type": "application/json",
+        },
+        body: "{}",
+      }),
+      localEnv,
+      ctx,
+    );
+    await waitOnExecutionContext(ctx);
+
+    expect(response.status).toBe(401);
+  });
+
   it("returns not found for unknown path", async () => {
     const response = await dispatch("https://example.com/nope");
     expect(response.status).toBe(404);
