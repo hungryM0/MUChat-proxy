@@ -6,28 +6,17 @@
 npm install
 ```
 
-2. 创建本地变量文件
-
-```bash
-cp .dev.vars.example .dev.vars
-```
-
-3. 在 `.dev.vars` 里填信息门户密码
-
-```text
-MUC_PASSWORD=门户密码
-```
-
-4. 按需修改 `wrangler.jsonc` 里的 `MUC_USERNAME` 和 `API_KEYS`
+2. 按需修改 `wrangler.jsonc` 里的变量
 
 ```jsonc
 "vars": {
   "MUC_USERNAME": "学号",
+  "MUC_PASSWORD": "信息门户密码",
   "API_KEYS": "sk-key"
 }
 ```
 
-5. 启动服务
+3. 启动服务
 
 ```bash
 npm run dev

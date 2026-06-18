@@ -5,10 +5,8 @@
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
     "MUC_USERNAME": "",
+    "MUC_PASSWORD": "",
     "API_KEYS": ""
-  },
-  "secrets": {
-    "required": ["MUC_PASSWORD"]
   },
   "durable_objects": {
     "bindings": [

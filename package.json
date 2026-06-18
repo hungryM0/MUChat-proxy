@@ -13,7 +13,7 @@
   "cloudflare": {
     "bindings": {
       "MUC_USERNAME": {
-        "description": "信息门户账号，通常是学号"
+        "description": "学号"
       },
       "MUC_PASSWORD": {
         "description": "信息门户密码"
