@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AppEnv } from "../src/env";
 import worker from "../src";
 
+const testApiKey = "sk-test-key";
 const token = makeToken(Math.floor((Date.now() + 2 * 60 * 60 * 1000) / 1000));
 type MockResponseSpec = {
   status: number;
@@ -47,7 +48,7 @@ describe("worker entry", () => {
       new Request("https://example.com/v1/chat/completions", {
         method: "POST",
         headers: {
-          Authorization: "Bearer sk-demo-key",
+          Authorization: `Bearer ${testApiKey}`,
           "Content-Type": "application/json",
         },
         body: "{}",
@@ -87,7 +88,7 @@ describe("worker entry", () => {
     const response = await dispatch("https://example.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: "Bearer sk-demo-key",
+        Authorization: `Bearer ${testApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -121,7 +122,7 @@ describe("worker entry", () => {
     const response = await dispatch("https://example.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: "Bearer sk-demo-key",
+        Authorization: `Bearer ${testApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -159,7 +160,7 @@ describe("worker entry", () => {
     const response = await dispatch("https://example.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: "Bearer sk-demo-key",
+        Authorization: `Bearer ${testApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -191,7 +192,7 @@ describe("worker entry", () => {
     const response = await dispatch("https://example.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: "Bearer sk-demo-key",
+        Authorization: `Bearer ${testApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -222,7 +223,7 @@ describe("worker entry", () => {
       dispatch("https://example.com/v1/chat/completions", {
         method: "POST",
         headers: {
-          Authorization: "Bearer sk-demo-key",
+          Authorization: `Bearer ${testApiKey}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -244,7 +245,7 @@ describe("worker entry", () => {
     const response = await dispatch("https://example.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: "Bearer sk-demo-key",
+        Authorization: `Bearer ${testApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -284,7 +285,14 @@ function mockFetchSequence(responses: MockResponseSpec[]) {
 
 async function dispatch(input: string, init?: RequestInit): Promise<Response> {
   const ctx = createExecutionContext();
-  const response = await worker.fetch(new Request(input, init), env as AppEnv, ctx);
+  const response = await worker.fetch(
+    new Request(input, init),
+    {
+      ...(env as AppEnv),
+      API_KEYS: testApiKey,
+    },
+    ctx,
+  );
   await waitOnExecutionContext(ctx);
   return response;
 }
