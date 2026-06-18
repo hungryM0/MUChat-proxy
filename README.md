@@ -17,21 +17,27 @@ MUC_PASSWORD=信息门户密码
 API_KEYS=鉴权令牌
 ```
 
-3. 接口路径：
+## Serverless 架构
 
-```text
-https://你的-worker-地址/v1/chat/completions
-```
+该仓库提供 Serverless 架构的 Cloudflare Worker 部署方式，无需自备服务器
 
-| 功能 | 本地部署 | Cloudflare 部署 |
+|  | 本地部署 | Cloudflare 部署 |
 | --- | --- | --- |
-| 直接对外提供接口 | ❌ | ✅ |
-| 适合长期运行 | ❌ | ✅ |
-| 公网访问 | ❌ | ✅ |
-| 环境依赖更少 | ❌ | ✅ |
-| 配置管理更方便 | ❌ | ✅ |
-| 账号密码保护更省心 | ❌ | ✅ |
-| 多设备调用 | ❌ | ✅ |
+| 主要用途 | 开发调试 | 正式使用 |
+| 运行方式 | 依赖本机环境和终端进程 | 由 Cloudflare 托管 |
+| 稳定性 | 关机或断网后不可用 | 适合长期运行 |
+| 配置管理 | 需要自己维护本地变量 | 在 Cloudflare 后台配置 |
+| 外部调用 | 需要额外内网穿透或公网服务器 | 直接使用 Worker 地址 |
+
+```mermaid
+flowchart LR
+  Client[OpenAI 兼容客户端] --> Worker[Cloudflare Worker]
+  Worker --> Auth[API Key 鉴权]
+  Auth --> Token[Token Cache]
+  Token --> CAS[民大统一认证]
+  Auth --> Upstream[AI 民大聊天接口]
+  Upstream --> Client
+```
 
 ## 功能
 
@@ -42,13 +48,15 @@ https://你的-worker-地址/v1/chat/completions
 - 支持 `stream: true` 的 OpenAI 风格 SSE 流式输出
 - `deepseek-r1-minda` **不返回思考内容**，只返回最终答案
 
-## Serverless 架构
-
-项目运行在 Cloudflare Workers ，因此无需自备服务器
 
 ## 接口
 
-### 聊天接口
+| 方法 | 路由 | 描述 |
+| --- | --- | --- |
+| POST | /v1/chat/completions | 对话 |
+| GET | /healthz | 健康检查 |
+
+### 对话接口
 
 ```text
 POST /v1/chat/completions
@@ -85,7 +93,7 @@ curl https://你的-worker-地址/v1/chat/completions \
 GET /healthz
 ```
 
-健康检查示例：
+`curl` 调用示例：
 
 ```bash
 curl https://你的-worker-地址/healthz
