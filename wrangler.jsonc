@@ -4,8 +4,8 @@
   "compatibility_date": "2025-05-11",
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
-    "API_KEYS": "",
-    "MUC_USERNAME": ""
+    "MUC_USERNAME": "",
+    "API_KEYS": ""
   },
   "secrets": {
     "required": ["MUC_PASSWORD"]

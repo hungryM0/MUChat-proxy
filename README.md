@@ -12,9 +12,9 @@
 2. 按部署页面提示填写：
 
 ```text
-API_KEYS=你的API Key
 MUC_USERNAME=学号
 MUC_PASSWORD=信息门户密码
+API_KEYS=鉴权令牌
 ```
 
 3. 接口路径：
