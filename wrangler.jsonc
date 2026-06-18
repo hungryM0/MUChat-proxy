@@ -4,8 +4,8 @@
   "compatibility_date": "2025-05-11",
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
-    "API_KEYS": "sk-demo-key",
-    "MUC_USERNAME": "114514"
+    "API_KEYS": "",
+    "MUC_USERNAME": ""
   },
   "secrets": {
     "required": ["MUC_PASSWORD"]

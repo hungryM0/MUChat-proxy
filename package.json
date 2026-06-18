@@ -16,7 +16,7 @@
         "description": "调用本代理时使用的 Key"
       },
       "MUC_USERNAME": {
-        "description": "学号"
+        "description": "信息门户账号，通常是学号"
       },
       "MUC_PASSWORD": {
         "description": "信息门户密码"

@@ -12,17 +12,17 @@ npm install
 cp .dev.vars.example .dev.vars
 ```
 
-3. 填账号密码
+3. 在 `.dev.vars` 里填信息门户密码
 
 ```text
-MUC_USERNAME=学号
 MUC_PASSWORD=门户密码
 ```
 
-4. 按需修改 `wrangler.jsonc` 里的 `API_KEYS`
+4. 按需修改 `wrangler.jsonc` 里的 `MUC_USERNAME` 和 `API_KEYS`
 
 ```jsonc
 "vars": {
+  "MUC_USERNAME": "学号",
   "API_KEYS": "sk-key"
 }
 ```
@@ -33,4 +33,4 @@ MUC_PASSWORD=门户密码
 npm run dev
 ```
 
-默认地址为 `http://127.0.0.1:8787`。
+默认端口号为 `8787`。
