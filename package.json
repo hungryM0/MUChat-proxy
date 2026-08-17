@@ -27,10 +27,10 @@
     "sm-crypto": "^0.4.0"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.16.3",
+    "@cloudflare/vitest-pool-workers": "^0.21.3",
     "@cloudflare/workers-types": "^4.20260510.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.5",
-    "wrangler": "^4.90.0"
+    "wrangler": "^4.123.0"
   }
 }
